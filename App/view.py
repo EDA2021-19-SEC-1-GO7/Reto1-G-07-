@@ -20,6 +20,7 @@
  * along withthis program.  If not, see <http://www.gnu.org/licenses/>.
  """
 
+from typing import cast
 import config as cf
 import sys
 import controller as ctrl
@@ -57,9 +58,27 @@ while True:
     inputs = input('Seleccione una opción para continuar\n')
     if int(inputs[0]) == 1:
         print("Cargando información de los archivos ....")
-        empty_Data=initialize()
-        LoadData(empty_Data)
-
+        Datos=initialize()
+        Load_Data(Datos)
+        print("Numero de videos cargados: "+str(lt.size(Datos["videos"])))
+        first=lt.firstElement(Datos["videos"])
+        print("Datos del primer video cargado:\n"+
+            "Titulo: "+str(first["title"])+"\n"+
+            "Canal: "+str(first["channel_title"])+"\n"+
+            "Fecha de trending: "+str(first["trending_date"])+"\n"+
+            "Pais: "+str(first["country"])+"\n"+
+            "Vistas: "+str(first["views"])+"\n"+
+            "Likes: "+str(first["likes"])+"\n"+
+            "Dislikes: "+str(first["dislikes"])
+        )
+        print("Categorias: \n"+"id "+" nombre")
+        for i in range(lt.size(Datos["categorias"])):
+            cats=Datos["categorias"]
+            elemento=lt.getElement(cats,i+1)
+            id=elemento["id"]
+            name=elemento["name"]
+            print(id+" "+name)
+        
     elif int(inputs[0]) == 2:
         pass
 

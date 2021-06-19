@@ -46,6 +46,10 @@ def initialize():
 
 def add_video(Data, video):
     lt.addLast(Data["videos"],video)
+
+def add_categoria(Data, categoria):
+    lt.addLast(Data["categorias"],categoria)
+
 # Construccion de modelos
 
 # Funciones para agregar informacion al catalogo

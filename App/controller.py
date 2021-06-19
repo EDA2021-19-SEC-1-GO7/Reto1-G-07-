@@ -20,6 +20,7 @@
  * along withthis program.  If not, see <http://www.gnu.org/licenses/>.
  """
 
+from os import sep
 import config as cf
 import model 
 import csv
@@ -34,7 +35,21 @@ def initialize():
     Datos=model.initialize()
     return Datos 
 
-def Load_data(storage:dict):
+def Load_Data(storage:dict):
+    Load_videos(storage)
+    Load_cetegories(storage)
+
+def Load_videos(storage:dict):
+    videos_File = cf.data_dir + 'videos-small.csv'
+    input_file = csv.DictReader(open(videos_File, encoding='utf-8'))
+    for video in input_file:
+        model.add_video(storage, video)
+
+def Load_cetegories(storage:dict):
+    cat_File = cf.data_dir + 'category-id.csv'
+    input_file = csv.DictReader(open(cat_File, encoding='utf-8'), delimiter='\t')
+    for cat in input_file:
+        model.add_categoria(storage, cat)
     
 # Funciones para la carga de datos
 
