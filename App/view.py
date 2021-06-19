@@ -78,7 +78,7 @@ while True:
             id=elemento["id"]
             name=elemento["name"]
             print(id+" "+name)
-        
+        #sha
     elif int(inputs[0]) == 2:
         pass
 
