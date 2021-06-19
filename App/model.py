@@ -34,6 +34,7 @@ assert cf
 Se define la estructura de un catálogo de videos. El catálogo tendrá dos listas, una para los videos, otra para las categorias de
 los mismos.
 """
+# Construccion de modelos
 def initialize():
     Data={
         "videos":None,
@@ -43,16 +44,16 @@ def initialize():
     Data["categorias"]=lt.newList("ARRAY_LIST")
 
     return Data
-
+# Funciones para agregar informacion al catalogo
 def add_video(Data, video):
     lt.addLast(Data["videos"],video)
 
 def add_categoria(Data, categoria):
     lt.addLast(Data["categorias"],categoria)
 
-# Construccion de modelos
 
-# Funciones para agregar informacion al catalogo
+
+
 
 # Funciones para creacion de datos
 

@@ -34,7 +34,7 @@ El controlador se encarga de mediar entre la vista y el modelo.
 def initialize():
     Datos=model.initialize()
     return Datos 
-
+# Funciones para la carga de datos
 def Load_Data(storage:dict):
     Load_videos(storage)
     Load_cetegories(storage)
@@ -51,7 +51,7 @@ def Load_cetegories(storage:dict):
     for cat in input_file:
         model.add_categoria(storage, cat)
     
-# Funciones para la carga de datos
+
 
 # Funciones de ordenamiento
 
