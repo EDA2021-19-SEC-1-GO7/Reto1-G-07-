@@ -21,7 +21,7 @@
  """
 
 import config as cf
-import model
+import model 
 import csv
 
 
@@ -30,6 +30,9 @@ El controlador se encarga de mediar entre la vista y el modelo.
 """
 
 # Inicialización del Catálogo de libros
+def initialize():
+    Datos=model.initialize()
+    return Datos 
 
 # Funciones para la carga de datos
 

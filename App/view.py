@@ -22,7 +22,7 @@
 
 import config as cf
 import sys
-import controller
+import controller as ctrl
 from DISClib.ADT import list as lt
 assert cf
 
@@ -37,9 +37,15 @@ operación solicitada
 def printMenu():
     print("Bienvenido")
     print("1- Cargar información en el catálogo")
-    print("2- ")
+    print("2- Mostrar los videos con más likes que son tendencia.")
+    print("3- Video que más ha sido trending en un pais especifico.")
+    print("4- Video que más ha sido trending en una categoria especifica.")
+    print("5- n videos con más comentarios, en un pais y con tag especifico.")
 
 catalog = None
+
+def initialize():
+    return ctrl.initialize()
 
 """
 Menu principal
@@ -49,7 +55,7 @@ while True:
     inputs = input('Seleccione una opción para continuar\n')
     if int(inputs[0]) == 1:
         print("Cargando información de los archivos ....")
-
+        
     elif int(inputs[0]) == 2:
         pass
 
