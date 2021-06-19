@@ -34,6 +34,8 @@ def initialize():
     Datos=model.initialize()
     return Datos 
 
+def Load_data(storage:dict):
+    
 # Funciones para la carga de datos
 
 # Funciones de ordenamiento

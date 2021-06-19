@@ -44,9 +44,11 @@ def printMenu():
 
 catalog = None
 
-def initialize():
+def initialize()->dict:
     return ctrl.initialize()
 
+def Load_Data(storage:dict)->None:
+    ctrl.Load_Data(storage)
 """
 Menu principal
 """
@@ -55,7 +57,9 @@ while True:
     inputs = input('Seleccione una opción para continuar\n')
     if int(inputs[0]) == 1:
         print("Cargando información de los archivos ....")
-        
+        empty_Data=initialize()
+        LoadData(empty_Data)
+
     elif int(inputs[0]) == 2:
         pass
 
