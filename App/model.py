@@ -52,9 +52,6 @@ def add_categoria(Data, categoria):
     lt.addLast(Data["categorias"],categoria)
 
 
-
-
-
 # Funciones para creacion de datos
 
 # Funciones de consulta
@@ -62,3 +59,8 @@ def add_categoria(Data, categoria):
 # Funciones utilizadas para comparar elementos dentro de una lista
 
 # Funciones de ordenamiento
+def cmpVideosByLikes(video1, video2): 
+    """ Devuelve verdadero (True) si los likes de video1 son menores que los del video2 Args: video1: 
+    informacion del primer video que incluye su valor 'likes' video2: informacion del segundo video 
+    que incluye su valor 'likes' """
+    return (float(video1['likes']) < float(video2['likes']))
