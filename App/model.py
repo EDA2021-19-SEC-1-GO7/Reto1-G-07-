@@ -35,13 +35,13 @@ Se define la estructura de un catálogo de videos. El catálogo tendrá dos list
 los mismos.
 """
 # Construccion de modelos
-def initialize():
+def initialize(tipo: str):
     Data={
         "videos":None,
         "categorias":None
     }
-    Data["videos"]=lt.newList("ARRAY_LIST")
-    Data["categorias"]=lt.newList("ARRAY_LIST")
+    Data["videos"]=lt.newList(tipo)
+    Data["categorias"]=lt.newList(tipo)
 
     return Data
 # Funciones para agregar informacion al catalogo

@@ -43,10 +43,14 @@ def printMenu():
     print("4- Video que más ha sido trending en una categoria especifica.")
     print("5- n videos con más comentarios, en un pais y con tag especifico.")
 
+def printType():
+    print("a- ARRAY_LIST")
+    print("b- LINKED_LIST")
+
 catalog = None
 
-def initialize()->dict:
-    return ctrl.initialize()
+def initialize(tipo)->dict:
+    return ctrl.initialize(tipo)
 
 def Load_Data(storage:dict)->None:
     ctrl.Load_Data(storage)
@@ -57,8 +61,14 @@ while True:
     printMenu()
     inputs = input('Seleccione una opción para continuar\n')
     if int(inputs[0]) == 1:
+
+        printType()
+        Inputs = input("Seleccione el tipo de representación de la lista\n")
+        if str(Inputs[0]) == 'a':
+            Datos=initialize('ARRAY_LIST')    
+        elif str(Inputs[0]) == 'b':
+            Datos=initialize('LINKED_LIST')   
         print("Cargando información de los archivos ....")
-        Datos=initialize()
         Load_Data(Datos)
         print("Numero de videos cargados: "+str(lt.size(Datos["videos"])))
         first=lt.firstElement(Datos["videos"])
@@ -78,7 +88,7 @@ while True:
             id=elemento["id"]
             name=elemento["name"]
             print(id+" "+name)
-        #sha
+        
     elif int(inputs[0]) == 2:
         pass
 
