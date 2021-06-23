@@ -54,5 +54,9 @@ def Load_cetegories(storage:dict):
 
 
 # Funciones de ordenamiento
+def sortVideos(Data, size, algorithm):
+    return model.sortVideos(Data, size, algorithm)
+
+
 
 # Funciones de consulta sobre el catálogo

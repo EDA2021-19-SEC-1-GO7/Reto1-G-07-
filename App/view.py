@@ -44,10 +44,15 @@ def printMenu():
     print("5- n videos con más comentarios, en un pais y con tag especifico.")
 
 def printType():
-    print("a- ARRAY_LIST")
-    print("b- LINKED_LIST")
+    print("1- ARRAY_LIST")
+    print("2- LINKED_LIST")
 
-catalog = None
+def printSortingAlgorithm():
+    print("1- Selection Sort")
+    print("2- Insertion Sort")
+    print("3- Shell Sort")
+
+Data = None
 
 def initialize(tipo)->dict:
     return ctrl.initialize(tipo)
@@ -61,12 +66,11 @@ while True:
     printMenu()
     inputs = input('Seleccione una opción para continuar\n')
     if int(inputs[0]) == 1:
-
         printType()
         Inputs = input("Seleccione el tipo de representación de la lista\n")
-        if str(Inputs[0]) == 'a':
+        if int(Inputs[0]) == 1:
             Datos=initialize('ARRAY_LIST')    
-        elif str(Inputs[0]) == 'b':
+        elif int(Inputs[0]) == 2:
             Datos=initialize('LINKED_LIST')   
         print("Cargando información de los archivos ....")
         Load_Data(Datos)
@@ -90,7 +94,21 @@ while True:
             print(id+" "+name)
         
     elif int(inputs[0]) == 2:
-        pass
+        country = input("Indique el país: ")
+        category_name = input("Indique el nombre de la categoría: ")
+        n = int(input("Indique tamaño de la muestra: "))
+
+        while n>lt.size(Datos["videos"]):
+            print("La muestra excede la cantidad de videos cargados en la memoria")
+            n = input("Indique tamaño de la muestra: ")
+
+        printSortingAlgorithm()
+        Inputs = input("Seleccione el tipo de algoritmo de ordenamiento iterativo\n")
+        if int(Inputs[0]) == 1:
+            pass  
+        elif int(Inputs[0]) == 2:
+            pass
+
 
     else:
         sys.exit(0)
