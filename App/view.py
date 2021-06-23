@@ -23,7 +23,7 @@
 from typing import cast
 import config as cf
 import sys
-import controller as ctrl
+import controller as controlador
 from DISClib.ADT import list as lt
 assert cf
 
@@ -46,10 +46,11 @@ def printMenu():
 catalog = None
 
 def initialize()->dict:
-    return ctrl.initialize()
+    return controlador.initialize()
 
 def Load_Data(storage:dict)->None:
-    ctrl.Load_Data(storage)
+    controlador.Load_Data(storage)
+
 """
 Menu principal
 """
@@ -79,9 +80,17 @@ while True:
             name=elemento["name"]
             print(id+" "+name)
         #sha
-    elif int(inputs[0]) == 2:
-        pass
-
+    elif int(inputs[0]) == 5:
+        pais=input("Pais: ")
+        categoria=input("Categoria: ")
+        n=input("Numero de videos a listar: ")
+        tiempo,lista=controlador.vids_count_cat_likes(Datos["videos"],Datos["categorias"]," "+categoria,pais)#El " " es porque cuando se leen las categorias, vienen con un espacio al inicio.
+        i=0
+        print("tamaño: "+str(lt.size(lista)))
+        while i<lt.size(lista) and i<int(n):
+            vid=lt.getElement(lista,i)
+            print("Titulo: "+vid["title"],"trending date: "+vid["trending_date"],"Canal: "+vid["channel_title"],"Fecha de publicacion: "+vid["publish_time"],"Vistas: "+vid["views"],"Likes: "+vid["likes"],"Dislikes: "+vid["dislikes"])
+            i+=1
     else:
         sys.exit(0)
 sys.exit(0)
