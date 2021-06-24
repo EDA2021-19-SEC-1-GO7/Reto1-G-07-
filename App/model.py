@@ -79,7 +79,7 @@ def filtrar_count_cat(videos:list,categories:list,categoria:str,pais:str)->list:
 
 def sort_vids(videos:list)->list:  
     start_time = time.process_time()
-    sorted_list = sa.sort(videos, compare_likes)
+    sorted_list = shell.sort(videos, compare_likes)
     stop_time = time.process_time()
     elapsed_time_mseg = (stop_time - start_time)*1000
     return elapsed_time_mseg, sorted_list
