@@ -122,6 +122,7 @@ while True:
             print("Titulo: "+vid["title"],"trending date: "+vid["trending_date"],"Canal: "+vid["channel_title"],"Fecha de publicacion: "+vid["publish_time"],"Vistas: "+vid["views"],"Likes: "+vid["likes"],"Dislikes: "+vid["dislikes"])
             i+=1
 
+
     else:
         sys.exit(0)
 sys.exit(0)

@@ -74,17 +74,7 @@ def filtrar_count_cat(videos:list, categories:list, categoria:str, pais:str, alg
             lt.addLast(vids_cat,video_i)
     return sort_vids(vids_cat, algoritmo )
 
-def sort_vids(Data:list, algorithm: str):
-    start_time = time.process_time()
-    if algorithm=="shell":
-        sorted_list = shell.sort(Data, cmpVideosByLikes)
-    elif algorithm=="selection":
-        sorted_list = sel.sort(Data, cmpVideosByLikes)
-    elif algorithm=="insertion":
-        sorted_list = ins.sort(Data, cmpVideosByLikes)
-    stop_time = time.process_time()
-    elapsed_time_mseg = (stop_time - start_time)*1000
-    return elapsed_time_mseg, sorted_list
+
 
 # Funciones para creacion de datos
 
@@ -99,6 +89,18 @@ def cmpVideosByLikes(video1, video2):
     return (float(video1['likes']) > float(video2['likes']))
 
 # Funciones de ordenamiento
+
+def sort_vids(Data:list, algorithm: str):
+    start_time = time.process_time()
+    if algorithm=="shell":
+        sorted_list = shell.sort(Data, cmpVideosByLikes)
+    elif algorithm=="selection":
+        sorted_list = sel.sort(Data, cmpVideosByLikes)
+    elif algorithm=="insertion":
+        sorted_list = ins.sort(Data, cmpVideosByLikes)
+    stop_time = time.process_time()
+    elapsed_time_mseg = (stop_time - start_time)*1000
+    return elapsed_time_mseg, sorted_list
 
 
 

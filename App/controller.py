@@ -55,10 +55,10 @@ def Load_cetegories(storage:dict):
 def filtrar_count_cat(videos:list, categories:list, categoria:str, pais:str, algoritmo:str)->list:
     return model.filtrar_count_cat(videos, categories, categoria, pais, algoritmo)
 
-def sort_vids(Data:list, algorithm: str):
-    return model.sort_vids(Data, algorithm)
 
 # Funciones de ordenamiento
 
+def sort_vids(Data:list, algorithm: str):
+    return model.sort_vids(Data, algorithm)
 
 # Funciones de consulta sobre el catálogo
