@@ -56,10 +56,8 @@ def add_video(Data, video):
 def add_categoria(Data, categoria):
     lt.addLast(Data["categorias"],categoria)
 
-def compare_likes(vid1:dict,vid2:dict)->bool:
-    return float(vid1["likes"])>float(vid2["likes"])
 
-def filtrar_count_cat(videos:list,categories:list,categoria:str,pais:str)->list:
+def filtrar_count_cat(videos:list, categories:list, categoria:str, pais:str, algoritmo:str)->list:
     vids_cat=lt.newList()
     cat_id=None
     j=0
@@ -68,22 +66,25 @@ def filtrar_count_cat(videos:list,categories:list,categoria:str,pais:str)->list:
         categ=lt.getElement(categories,j)
         if categ["name"]==categoria:
             search=False
-            print(categ)
             cat_id=categ["id"]
         j+=1
     for i in range(lt.size(videos)):
         video_i=lt.getElement(videos,i)
         if video_i["category_id"]==cat_id and video_i["country"]==pais:
             lt.addLast(vids_cat,video_i)
-    return vids_cat
+    return sort_vids(vids_cat, algoritmo )
 
-def sort_vids(videos:list)->list:  
+def sort_vids(Data:list, algorithm: str):
     start_time = time.process_time()
-    sorted_list = shell.sort(videos, compare_likes)
+    if algorithm=="shell":
+        sorted_list = shell.sort(Data, cmpVideosByLikes)
+    elif algorithm=="selection":
+        sorted_list = sel.sort(Data, cmpVideosByLikes)
+    elif algorithm=="insertion":
+        sorted_list = ins.sort(Data, cmpVideosByLikes)
     stop_time = time.process_time()
     elapsed_time_mseg = (stop_time - start_time)*1000
     return elapsed_time_mseg, sorted_list
-
 
 # Funciones para creacion de datos
 
@@ -95,20 +96,9 @@ def cmpVideosByLikes(video1, video2):
     """ Devuelve verdadero (True) si los likes de video1 son menores que los del video2 
     Args: video1: informacion del primer video que incluye su valor 'likes' 
     video2: informacion del segundo video que incluye su valor 'likes' """
-    return (float(video1['likes']) < float(video2['likes']))
+    return (float(video1['likes']) > float(video2['likes']))
 
 # Funciones de ordenamiento
-def sortVideos(Data, size, algorithm):
-    sub_list = lt.subList(Data['videos'], 0, size)
-    sub_list = sub_list.copy()
-    start_time = time.process_time()
-    if algorithm=="shell":
-        sorted_list = shell.sort(sub_list, cmpVideosByLikes)
-    elif algorithm=="selection":
-        sorted_list = sel.sort(sub_list, cmpVideosByLikes)
-    elif algorithm=="insertion":
-        sorted_list = ins.sort(sub_list, cmpVideosByLikes)
-    stop_time = time.process_time()
-    elapsed_time_mseg = (stop_time - start_time)*1000
-    return elapsed_time_mseg, sorted_list
+
+
 
