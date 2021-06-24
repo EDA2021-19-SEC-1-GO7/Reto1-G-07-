@@ -25,6 +25,7 @@
  """
 
 
+
 import config as cf
 from DISClib.ADT import list as lt
 from DISClib.Algorithms.Sorting import shellsort as shell
@@ -32,6 +33,7 @@ from DISClib.Algorithms.Sorting import insertionsort as ins
 from DISClib.Algorithms.Sorting import selectionsort as sel
 import time
 assert cf
+import time
 
 """
 Se define la estructura de un catálogo de videos. El catálogo tendrá dos listas, una para los videos, otra para las categorias de
@@ -53,6 +55,34 @@ def add_video(Data, video):
 
 def add_categoria(Data, categoria):
     lt.addLast(Data["categorias"],categoria)
+
+def compare_likes(vid1:dict,vid2:dict)->bool:
+    return float(vid1["likes"])>float(vid2["likes"])
+
+def filtrar_count_cat(videos:list,categories:list,categoria:str,pais:str)->list:
+    vids_cat=lt.newList()
+    cat_id=None
+    j=0
+    search=True
+    while j<lt.size(categories) and search:
+        categ=lt.getElement(categories,j)
+        if categ["name"]==categoria:
+            search=False
+            print(categ)
+            cat_id=categ["id"]
+        j+=1
+    for i in range(lt.size(videos)):
+        video_i=lt.getElement(videos,i)
+        if video_i["category_id"]==cat_id and video_i["country"]==pais:
+            lt.addLast(vids_cat,video_i)
+    return vids_cat
+
+def sort_vids(videos:list)->list:  
+    start_time = time.process_time()
+    sorted_list = sa.sort(videos, compare_likes)
+    stop_time = time.process_time()
+    elapsed_time_mseg = (stop_time - start_time)*1000
+    return elapsed_time_mseg, sorted_list
 
 
 # Funciones para creacion de datos

@@ -50,8 +50,13 @@ def Load_cetegories(storage:dict):
     input_file = csv.DictReader(open(cat_File, encoding='utf-8'), delimiter='\t')
     for cat in input_file:
         model.add_categoria(storage, cat)
-    
 
+def vids_count_cat_likes(videos:list,categories:list,categoria:str,pais:str)->list:
+    list_filtrada=model.filtrar_count_cat(videos,categories,categoria,pais)
+    return sort_vids(list_filtrada)
+
+def sort_vids(videos:list):
+    return model.sort_vids(videos) 
 
 # Funciones de ordenamiento
 def sortVideos(Data, size, algorithm):
