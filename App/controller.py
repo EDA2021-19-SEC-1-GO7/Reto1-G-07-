@@ -41,7 +41,7 @@ def Load_Data(storage:dict):
     Load_cetegories(storage)
 
 def Load_videos(storage:dict):
-    videos_File = cf.data_dir + 'videos-small.csv'
+    videos_File = cf.data_dir + 'videos-large.csv'
     input_file = csv.DictReader(open(videos_File, encoding='utf-8'))
     for video in input_file:
         model.add_video(storage, video)
