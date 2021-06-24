@@ -114,10 +114,10 @@ while True:
             algoritmo="shell"
 
         tiempo,lista=ctrl.sort_vids(lt.subList(Datos["videos"], 0, int(muestra)), algoritmo)#El " " es porque cuando se leen las categorias, vienen con un espacio al inicio.
-        i=0
+        i=1
         print("tamaño: "+str(lt.size(lista)))
         print(tiempo, "ms")
-        while i<lt.size(lista) and i<int(n):
+        while i<=lt.size(lista) and i<=int(n):
             vid=lt.getElement(lista,i)
             print("Titulo: "+vid["title"],"trending date: "+vid["trending_date"],"Canal: "+vid["channel_title"],"Fecha de publicacion: "+vid["publish_time"],"Vistas: "+vid["views"],"Likes: "+vid["likes"],"Dislikes: "+vid["dislikes"])
             i+=1
