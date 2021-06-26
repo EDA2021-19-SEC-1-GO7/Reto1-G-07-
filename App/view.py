@@ -95,14 +95,13 @@ while True:
             print(id+" "+name)
         
     elif int(inputs[0]) == 2:
-        pais=input("Pais: ")
-        categoria=input("Categoria: ")
-        n=input("Numero de videos a listar: ")
-        muestra=input("Indique el tamaño de la muestra: ")
-        print(lt.size(Datos["videos"]))
-        while int(muestra)>lt.size(Datos["videos"]):
+        #pais=input("Pais: ")
+        #categoria=input("Categoria: ")
+        n = input("Numero de videos a listar: ")
+        muestra = input("Indique el tamaño de la muestra: ")
+        while int(muestra) > lt.size(Datos["videos"]):
             print("La muestra excede la cantidad de videos cargados en la memoria")
-            n = input("Indique tamaño de la muestra: ")
+            muestra = input("Indique tamaño de la muestra: ")
 
         printSortingAlgorithm()
         Inputs = input("Seleccione el tipo de algoritmo de ordenamiento iterativo\n")

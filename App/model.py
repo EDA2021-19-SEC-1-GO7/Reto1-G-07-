@@ -25,7 +25,6 @@
  """
 
 
-
 import config as cf
 from DISClib.ADT import list as lt
 from DISClib.Algorithms.Sorting import shellsort as shell
