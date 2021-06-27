@@ -91,7 +91,8 @@ while True:
             n = input("Número de videos a listar: ")
         tiempo,lista=ctrl.filtrar_count_cat(Datos["videos"], Datos["categorias"], " "+categoria, pais) #El " " es porque cuando se leen las categorias, vienen con un espacio al inicio.
         i=1
-        print("tamaño: "+str(lt.size(lista)))
+        if lt.size(lista)==0:
+            print("No hay videos que hayan sido tendencia en ese país y en esa categoria")
         while i<=lt.size(lista) and i<=int(n):
             vid=lt.getElement(lista,i)
             print("Titulo: "+vid["title"],"trending date: "+vid["trending_date"],"Canal: "+vid["channel_title"],"Fecha de publicacion: "+vid["publish_time"],"Vistas: "+vid["views"],"Likes: "+vid["likes"],"Dislikes: "+vid["dislikes"])
