@@ -41,23 +41,15 @@ sys.setrecursionlimit(default_limit*10)
 def printMenu():
     print("Bienvenido")
     print("1- Cargar información en el catálogo")
-    print("2- Mostrar los videos con más likes que son tendencia.")
-    print("3- Video que más ha sido trending en un pais especifico.")
-    print("4- Video que más ha sido trending en una categoria especifica.")
-    print("5- n videos con más comentarios, en un pais y con tag especifico.")
-
-def printType():
-    print("1- ARRAY_LIST")
-    print("2- LINKED_LIST")
-
-def printSortingAlgorithm():
-    print("1- Merge Sort")
-    print("2- Quick Sort")
+    print("2- Mostrar n videos con más likes que son tendencia en un país y de una categoría específica.")
+    print("3- Video que ha sido trending por más días en un pais especifico con una percepción altamente positiva.")
+    print("4- Video que ha sido trending por más días de categoria especifica con una percepción sumamente positiva.")
+    print("5- Mostrar n videos con más comentarios, en un pais y con tag especifico.")
 
 Data = None
 
-def initialize(tipo)->dict:
-    return ctrl.initialize(tipo)
+def initialize()->dict:
+    return ctrl.initialize()
 
 def Load_Data(storage:dict)->None:
     ctrl.Load_Data(storage)
@@ -69,12 +61,7 @@ while True:
     printMenu()
     inputs = input('Seleccione una opción para continuar\n')
     if int(inputs[0]) == 1:
-        printType()
-        Inputs = input("Seleccione el tipo de representación de la lista\n")
-        if int(Inputs[0]) == 1:
-            Datos=initialize('ARRAY_LIST')    
-        elif int(Inputs[0]) == 2:
-            Datos=initialize('LINKED_LIST')   
+        Datos=initialize()      
         print("Cargando información de los archivos ....")
         Load_Data(Datos)
         print("Numero de videos cargados: "+str(lt.size(Datos["videos"])))
@@ -97,31 +84,23 @@ while True:
             print(id+" "+name)
         
     elif int(inputs[0]) == 2:
-        #pais=input("Pais: ")
-        #categoria=input("Categoria: ")
-        n = input("Numero de videos a listar: ")
-        muestra = input("Indique el tamaño de la muestra: ")
-        while int(muestra) > lt.size(Datos["videos"]):
-            print("La muestra excede la cantidad de videos cargados en la memoria")
-            muestra = input("Indique tamaño de la muestra: ")
-
-        printSortingAlgorithm()
-        Inputs = input("Seleccione el tipo de algoritmo de ordenamiento recursivo\n")
-        if int(Inputs[0]) == 1:
-            algoritmo="merge"
-        elif int(Inputs[0]) == 2:
-            algoritmo="quick"
-
-        tiempo,lista=ctrl.sort_vids(lt.subList(Datos["videos"], 0, int(muestra)), algoritmo)#El " " es porque cuando se leen las categorias, vienen con un espacio al inicio.
+        pais=input("Pais: ")
+        categoria=input("Categoria: ")
+        n = input("Número de videos a listar: ")
+        while int(n)>lt.size(Datos["videos"]):
+            print("El número de videos a listar excede la cantidad de videos cargados en la memoria")
+            n = input("Número de videos a listar: ")
+        tiempo,lista=ctrl.filtrar_count_cat(Datos["videos"], Datos["categorias"], " "+categoria, pais) #El " " es porque cuando se leen las categorias, vienen con un espacio al inicio.
         i=1
         print("tamaño: "+str(lt.size(lista)))
-        print(tiempo, "ms")
         while i<=lt.size(lista) and i<=int(n):
             vid=lt.getElement(lista,i)
             print("Titulo: "+vid["title"],"trending date: "+vid["trending_date"],"Canal: "+vid["channel_title"],"Fecha de publicacion: "+vid["publish_time"],"Vistas: "+vid["views"],"Likes: "+vid["likes"],"Dislikes: "+vid["dislikes"])
             i+=1
 
-
+    elif int(inputs[0]) == 4:
+        categoria= input("Categoria: ")
+        
     else:
         sys.exit(0)
 sys.exit(0)

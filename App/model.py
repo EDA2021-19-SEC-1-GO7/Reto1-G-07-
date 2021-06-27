@@ -38,13 +38,13 @@ Se define la estructura de un catálogo de videos. El catálogo tendrá dos list
 los mismos.
 """
 # Construccion de modelos
-def initialize(tipo: str):
+def initialize():
     Data={
         "videos":None,
         "categorias":None
     }
-    Data["videos"]=lt.newList(tipo)
-    Data["categorias"]=lt.newList(tipo)
+    Data["videos"]=lt.newList("ARRAY_LIST")
+    Data["categorias"]=lt.newList("ARRAY_LIST")
 
     return Data
 # Funciones para agregar informacion al catalogo
@@ -55,7 +55,11 @@ def add_categoria(Data, categoria):
     lt.addLast(Data["categorias"],categoria)
 
 
-def filtrar_count_cat(videos:list, categories:list, categoria:str, pais:str, algoritmo:str)->list:
+# Funciones para creacion de datos
+
+# Funciones de consulta
+
+def filtrar_count_cat(videos:list, categories:list, categoria:str, pais:str)->list:
     vids_cat=lt.newList()
     cat_id=None
     j=0
@@ -70,13 +74,33 @@ def filtrar_count_cat(videos:list, categories:list, categoria:str, pais:str, alg
         video_i=lt.getElement(videos,i)
         if video_i["category_id"]==cat_id and video_i["country"]==pais:
             lt.addLast(vids_cat,video_i)
-    return sort_vids(vids_cat, algoritmo )
+    return sort_vids(vids_cat)
 
+def filtrar_cat(videos:list, categories:list, categoria:str)->list:
+    videos_cat= lt.newList()
+    cat_id=None
+    j=0
+    encontro=False
+    while j<lt.size(categories) and encontro == False:
+        categ=lt.getElement(categories, j)
+        if categ["name"]==categoria:
+            search = True
+            cat_id = categ["id"]
+        j+=1
 
+    for i in range(lt.size(videos)):
+        video=lt.getElement(videos, i)
+        if video["category_id"] == cat_id:
+            lt.addLast(videos_cat, video)
 
-# Funciones para creacion de datos
+    return videos_cat
 
-# Funciones de consulta
+def cant_dias_tendencia(videos: list)->list:
+    dias_tendencia = {}
+    for i in (lt.size(videos)):
+        video =lt.getElement(videos, i)
+        pos =lt.isPresent(videos, video)
+    return 
 
 # Funciones utilizadas para comparar elementos dentro de una lista
 
@@ -88,12 +112,9 @@ def cmpVideosByLikes(video1, video2):
 
 # Funciones de ordenamiento
 
-def sort_vids(Data:list, algorithm: str):
+def sort_vids(Data:list):
     start_time = time.process_time()
-    if algorithm=="merge":
-        sorted_list = merge.sort(Data, cmpVideosByLikes)
-    elif algorithm=="quick":
-        sorted_list = quick.sort(Data, cmpVideosByLikes)
+    sorted_list = merge.sort(Data, cmpVideosByLikes)
     stop_time = time.process_time()
     elapsed_time_mseg = (stop_time - start_time)*1000
     return elapsed_time_mseg, sorted_list
