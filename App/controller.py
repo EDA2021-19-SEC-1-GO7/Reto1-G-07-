@@ -31,8 +31,8 @@ El controlador se encarga de mediar entre la vista y el modelo.
 """
 
 # Inicialización del Catálogo de libros
-def initialize(tipo):
-    Datos=model.initialize(tipo)
+def initialize():
+    Datos=model.initialize()
     return Datos 
 
 # Funciones para la carga de datos
@@ -52,8 +52,8 @@ def Load_cetegories(storage:dict):
     for cat in input_file:
         model.add_categoria(storage, cat)
 
-def filtrar_count_cat(videos:list, categories:list, categoria:str, pais:str, algoritmo:str)->list:
-    return model.filtrar_count_cat(videos, categories, categoria, pais, algoritmo)
+def filtrar_count_cat(videos:list, categories:list, categoria:str, pais:str)->list:
+    return model.filtrar_count_cat(videos, categories, categoria, pais)
 
 # Funciones de ordenamiento
 
@@ -62,5 +62,8 @@ def sort_vids(Data:list, algorithm: str):
 
 # Funciones de consulta sobre el catálogo
 
-def trend_per_count(vids:list,pais:str):
+def max_vids_count(vids:list,pais:str):
     return model.max_vids_count(vids,pais)
+
+def max_vids_cat(videos:list, categories:list, categoria:str):
+    return model.max_vids_cat(videos, categories, categoria)
