@@ -92,15 +92,15 @@ def filtrar_cat(videos:list, categories:list, categoria:str)->list:
         video=lt.getElement(videos, i)
         if video["category_id"] == cat_id:
             lt.addLast(videos_cat, video)
-
     return videos_cat
 
-def cant_dias_tendencia(videos: list)->list:
+def cant_dias_tendencia(videos: list):
     dias_tendencia = {}
-    for i in (lt.size(videos)):
+    for i in range(lt.size(videos)):
         video =lt.getElement(videos, i)
         pos =lt.isPresent(videos, video)
-    return 
+        #dias_tendencia[video["title"]]== lt.size(pos)
+    return pos
 
 # Funciones utilizadas para comparar elementos dentro de una lista
 
