@@ -61,3 +61,6 @@ def sort_vids(Data:list, algorithm: str):
     return model.sort_vids(Data, algorithm)
 
 # Funciones de consulta sobre el catálogo
+
+def trend_per_count(vids:list,pais:str):
+    return model.max_vids_count(vids,pais)

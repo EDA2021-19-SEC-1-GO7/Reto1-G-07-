@@ -120,7 +120,10 @@ while True:
             vid=lt.getElement(lista,i)
             print("Titulo: "+vid["title"],"trending date: "+vid["trending_date"],"Canal: "+vid["channel_title"],"Fecha de publicacion: "+vid["publish_time"],"Vistas: "+vid["views"],"Likes: "+vid["likes"],"Dislikes: "+vid["dislikes"])
             i+=1
-
+    elif int(inputs[0]) == 3:
+        pais=input("Pais sobre el cual consultar: ")
+        resultados=ctrl.trend_per_count(Datos["videos"],pais)
+        print("Titulo: "+resultados[0],"Canal: "+resultados[2],"pais: "+resultados[4],"Ratio_likes/dislikes: "+str(resultados[1]),"Numero de dias: "+str(resultados[3]))
 
     else:
         sys.exit(0)

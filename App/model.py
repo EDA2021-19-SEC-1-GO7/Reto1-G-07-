@@ -78,6 +78,50 @@ def filtrar_count_cat(videos:list, categories:list, categoria:str, pais:str, alg
 
 # Funciones de consulta
 
+def max_vids_count(videos:list,pais:str)->dict:
+    registro={}#Diccionario de listas vacio, tendra como llave los titulos de los videos; en las listas se anotaran los valores solicitados por el usuario.
+    for i in lt.iterator(videos):#Recorrer cada video de la lista principal.
+        titulo=i["title"]
+        if titulo in registro.keys() and i["country"]==pais: #Si el video ya ha aparecido para el pais requerido, entonces se suma uno al contador y se comparan los likes.
+            lista=registro[titulo]#[numero de apariciones, likes maximos, dislikes maximos,titulo del canal]
+            record=lt.getElement(lista,1)
+            lt.changeInfo(lista,1,record+1)#Suma 1 al contador
+            likes_i=int(i["likes"])
+            dislikes_i=int(i["dislikes"])
+            if likes_i>lt.getElement(lista,2):#Asumimos que la relacion likes/dislikes es la de la ultima fecha, y que en esta ultima fecha hay más likes que en las otras posibles.
+                lt.changeInfo(lista,2,likes_i)
+                lt.changeInfo(lista,3,dislikes_i)
+        elif titulo not in registro.keys() and i["country"]==pais:#Si el video no esta registrado ya, entonces se añade su entrada y se inicializa con sus valores.
+            registro[titulo]=lt.newList()
+            lt.addLast(registro[titulo],1)
+            lt.addLast(registro[titulo],int(i["likes"]))
+            lt.addLast(registro[titulo],int(i["dislikes"]))
+            lt.addLast(registro[titulo],i["channel_title"])
+        else:
+            pass #Caso en el que el video no corresponde al pais
+    #Para este punto nuestro diccionario tiene que tener todos los videos unicos de la lista para el pais seleccionado, y con los likes/dislikes más actuales.         
+    respuesta=None
+    ratio=None
+    for j in registro.keys():#Se recorre cada video unico.
+        apariciones_j=lt.getElement(registro[j],1)
+        likes=lt.getElement(registro[j],2)
+        dislikes=lt.getElement(registro[j],3)
+        if dislikes!=0 and likes/dislikes<10:
+            pass
+        elif respuesta!=None and (apariciones_j>lt.getElement(registro[respuesta],1)) and j!="Deleted video":
+            respuesta=j
+            if dislikes>0:
+                ratio=likes/dislikes
+            else:
+                ratio=likes#si hay 0 dislikes, entonces se toma el ratio como el numero de likes.
+        elif respuesta==None:
+            respuesta=j
+            if dislikes>0:
+                ratio=likes/dislikes
+            else:
+                ratio=likes
+    return respuesta,ratio,lt.getElement(registro[respuesta],4),lt.getElement(registro[respuesta],1),pais
+
 # Funciones utilizadas para comparar elementos dentro de una lista
 
 def cmpVideosByLikes(video1, video2): 
