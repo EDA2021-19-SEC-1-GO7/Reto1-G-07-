@@ -27,9 +27,8 @@
 
 import config as cf
 from DISClib.ADT import list as lt
-from DISClib.Algorithms.Sorting import shellsort as shell
-from DISClib.Algorithms.Sorting import insertionsort as ins
-from DISClib.Algorithms.Sorting import selectionsort as sel
+from DISClib.Algorithms.Sorting import mergesort as merge
+from DISClib.Algorithms.Sorting import quicksort as quick
 import time
 assert cf
 import time
@@ -91,12 +90,10 @@ def cmpVideosByLikes(video1, video2):
 
 def sort_vids(Data:list, algorithm: str):
     start_time = time.process_time()
-    if algorithm=="shell":
-        sorted_list = shell.sort(Data, cmpVideosByLikes)
-    elif algorithm=="selection":
-        sorted_list = sel.sort(Data, cmpVideosByLikes)
-    elif algorithm=="insertion":
-        sorted_list = ins.sort(Data, cmpVideosByLikes)
+    if algorithm=="merge":
+        sorted_list = merge.sort(Data, cmpVideosByLikes)
+    elif algorithm=="quick":
+        sorted_list = quick.sort(Data, cmpVideosByLikes)
     stop_time = time.process_time()
     elapsed_time_mseg = (stop_time - start_time)*1000
     return elapsed_time_mseg, sorted_list

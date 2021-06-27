@@ -35,6 +35,9 @@ se hace la solicitud al controlador para ejecutar la
 operación solicitada
 """
 
+default_limit = 1000
+sys.setrecursionlimit(default_limit*10)
+
 def printMenu():
     print("Bienvenido")
     print("1- Cargar información en el catálogo")
@@ -48,9 +51,8 @@ def printType():
     print("2- LINKED_LIST")
 
 def printSortingAlgorithm():
-    print("1- Selection Sort")
-    print("2- Insertion Sort")
-    print("3- Shell Sort")
+    print("1- Merge Sort")
+    print("2- Quick Sort")
 
 Data = None
 
@@ -104,13 +106,11 @@ while True:
             muestra = input("Indique tamaño de la muestra: ")
 
         printSortingAlgorithm()
-        Inputs = input("Seleccione el tipo de algoritmo de ordenamiento iterativo\n")
+        Inputs = input("Seleccione el tipo de algoritmo de ordenamiento recursivo\n")
         if int(Inputs[0]) == 1:
-            algoritmo="selection"
+            algoritmo="merge"
         elif int(Inputs[0]) == 2:
-            algoritmo="insertion"
-        elif int(Inputs[0]) == 3:
-            algoritmo="shell"
+            algoritmo="quick"
 
         tiempo,lista=ctrl.sort_vids(lt.subList(Datos["videos"], 0, int(muestra)), algoritmo)#El " " es porque cuando se leen las categorias, vienen con un espacio al inicio.
         i=1
