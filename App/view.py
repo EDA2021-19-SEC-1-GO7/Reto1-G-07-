@@ -35,7 +35,7 @@ se hace la solicitud al controlador para ejecutar la
 operación solicitada
 """
 
-default_limit = 1000
+default_limit = 10000
 sys.setrecursionlimit(default_limit*10)
 
 def printMenu():
@@ -100,7 +100,13 @@ while True:
 
     elif int(inputs[0]) == 4:
         categoria= input("Categoria: ")
-        
+        videos_cat=ctrl.filtrar_cat(Datos["videos"], Datos["categorias"], " "+categoria)
+        i=1
+        print("tamaño: "+str(lt.size(videos_cat)))
+        while i<=lt.size(videos_cat):
+            vid=lt.getElement(videos_cat,i)
+            print("Titulo: "+vid["title"],"trending date: "+vid["trending_date"],"Canal: "+vid["channel_title"],"Fecha de publicacion: "+vid["publish_time"],"Vistas: "+vid["views"],"Likes: "+vid["likes"],"Dislikes: "+vid["dislikes"])
+            i+=1
     else:
         sys.exit(0)
 sys.exit(0)

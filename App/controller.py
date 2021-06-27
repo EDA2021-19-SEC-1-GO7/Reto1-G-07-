@@ -61,3 +61,8 @@ def sort_vids(Data:list):
     return model.sort_vids(Data)
 
 # Funciones de consulta sobre el catálogo
+def filtrar_cat(videos:list, categories:list, categoria:str)->list:
+    return model.filtrar_cat(videos, categories, categoria)
+
+def cant_dias_tendencia(videos: list)->list:
+    return model.cant_dias_tendencia(videos)
