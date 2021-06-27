@@ -112,6 +112,14 @@ while True:
             print("\nTitulo: "+resultados[0], "\nCanal: "+resultados[2],"\nId de la Categroria: "+resultados[5],"\nRatio_likes/dislikes: "+str(resultados[1]),"\nNumero de dias: "+str(resultados[3]))
         except:
             print('No existe ningún video con esta condición')
+
+    elif int(inputs[0]) == 5:
+        pais=input("Pais sobre el cual consultar: ")
+        tag=input("Tag que desea consultar: ")
+        n = input("Número de videos a listar: ")
+        while int(n)>lt.size(Datos["videos"]):
+            print("El número de videos a listar excede la cantidad de videos cargados en la memoria")
+            n = input("Número de videos a listar: ")
             
     else:
         sys.exit(0)

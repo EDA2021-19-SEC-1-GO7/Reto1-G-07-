@@ -74,25 +74,8 @@ def filtrar_count_cat(videos:list, categories:list, categoria:str, pais:str)->li
         video_i=lt.getElement(videos,i)
         if video_i["category_id"]==cat_id and video_i["country"]==pais:
             lt.addLast(vids_cat,video_i)
-    return sort_vids(vids_cat)
+    return sort_vids_by_likes(vids_cat)
 
-def filtrar_cat(videos:list, categories:list, categoria:str)->list:
-    videos_cat= lt.newList()
-    cat_id=None
-    j=0
-    encontro=False
-    while j<lt.size(categories) and encontro == False:
-        categ=lt.getElement(categories, j)
-        if categ["name"]==categoria:
-            search = True
-            cat_id = categ["id"]
-        j+=1
-
-    for i in range(lt.size(videos)):
-        video=lt.getElement(videos, i)
-        if video["category_id"] == cat_id:
-            lt.addLast(videos_cat, video)
-    return videos_cat
 
 def max_vids_count(videos:list,pais:str)->dict:
     registro={}#Diccionario de listas vacio, tendra como llave los titulos de los videos; en las listas se anotaran los valores solicitados por el usuario.
@@ -201,14 +184,27 @@ def cmpVideosByLikes(video1, video2):
     video2: informacion del segundo video que incluye su valor 'likes' """
     return (float(video1['likes']) > float(video2['likes']))
 
+def cmpVideosByComments(video1, video2):
+     """ Devuelve verdadero (True) si los la cantidad de comentarios del 
+     video 1 es mayores que la cantidad del video2 Args: 
+     video1: informacion del primer video que incluye su valor 'likes' 
+     video2: informacion del segundo video que incluye su valor 'likes' """
+     return (float(video1['comment_count'])) > float(video2['comment_count'])
+
 # Funciones de ordenamiento
 
-def sort_vids(Data:list):
+def sort_vids_by_likes(Data:list):
     start_time = time.process_time()
     sorted_list = merge.sort(Data, cmpVideosByLikes)
     stop_time = time.process_time()
     elapsed_time_mseg = (stop_time - start_time)*1000
     return elapsed_time_mseg, sorted_list
 
+def sort_vids_by_comments(Data:list):
+    start_time = time.process_time()
+    sorted_list = merge.sort(Data, cmpVideosByComments)
+    stop_time = time.process_time()
+    elapsed_time_mseg = (stop_time - start_time)*1000
+    return elapsed_time_mseg, sorted_list
 
 

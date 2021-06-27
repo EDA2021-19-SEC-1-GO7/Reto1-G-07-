@@ -57,8 +57,6 @@ def filtrar_count_cat(videos:list, categories:list, categoria:str, pais:str)->li
 
 # Funciones de ordenamiento
 
-def sort_vids(Data:list, algorithm: str):
-    return model.sort_vids(Data, algorithm)
 
 # Funciones de consulta sobre el catálogo
 
