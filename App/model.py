@@ -76,6 +76,13 @@ def filtrar_count_cat(videos:list, categories:list, categoria:str, pais:str)->li
             lt.addLast(vids_cat,video_i)
     return sort_vids_by_likes(vids_cat)
 
+def filtrar_count_tag(videos, pais, tag)->list:
+    vid_filtrados=lt.newList()
+    for i in range(lt.size(videos)):
+        video=lt.getElement(videos, i)
+        if video["country"]==pais and (tag in video["tags"]):
+            lt.addLast(vid_filtrados, video)
+    return sort_vids_by_comments(vid_filtrados)
 
 def max_vids_count(videos:list,pais:str)->dict:
     registro={}#Diccionario de listas vacio, tendra como llave los titulos de los videos; en las listas se anotaran los valores solicitados por el usuario.

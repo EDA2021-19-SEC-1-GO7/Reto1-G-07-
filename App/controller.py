@@ -55,6 +55,9 @@ def Load_cetegories(storage:dict):
 def filtrar_count_cat(videos:list, categories:list, categoria:str, pais:str)->list:
     return model.filtrar_count_cat(videos, categories, categoria, pais)
 
+def filtrar_count_tag(videos, pais, tag)->list:
+    return model.filtrar_count_tag(videos, pais, tag)
+
 # Funciones de ordenamiento
 
 
