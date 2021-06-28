@@ -59,6 +59,17 @@ def add_categoria(Data, categoria):
 
 # Funciones de consulta
 
+def n_max_comments(videos:list,tag_0:str,pais_0:str):
+    videos_filtrados=lt.newList()
+    for i in lt.iterator(videos):
+        pais=i["country"]
+        tags=i["tags"]
+        #tags=tags[1:-1]#Quita el primer y ultimo elemento de la cadena
+        #tags_list=tags.split("\"|\"")
+        if pais==pais_0 and (tag_0 in tags):
+            lt.addLast(videos_filtrados,i)
+    return merge.sort(videos_filtrados,cmpVideosByComments)
+
 def filtrar_count_cat(videos:list, categories:list, categoria:str, pais:str)->list:
     vids_cat=lt.newList()
     cat_id=None
@@ -190,8 +201,6 @@ def cmpVideosByComments(video1, video2):
      video1: informacion del primer video que incluye su valor 'likes' 
      video2: informacion del segundo video que incluye su valor 'likes' """
      return (float(video1['comment_count'])) > float(video2['comment_count'])
-
-# Funciones de ordenamiento
 
 def sort_vids_by_likes(Data:list):
     start_time = time.process_time()

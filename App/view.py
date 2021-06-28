@@ -20,13 +20,14 @@
  * along withthis program.  If not, see <http://www.gnu.org/licenses/>.
  """
 
+
 from typing import cast
 import config as cf
 import sys
 import controller as ctrl
 from DISClib.ADT import list as lt
 assert cf
-
+from DISClib.Algorithms.Sorting import mergesort as merge
 
 """
 La vista se encarga de la interacción con el usuario
@@ -117,10 +118,12 @@ while True:
         pais=input("Pais sobre el cual consultar: ")
         tag=input("Tag que desea consultar: ")
         n = input("Número de videos a listar: ")
-        while int(n)>lt.size(Datos["videos"]):
-            print("El número de videos a listar excede la cantidad de videos cargados en la memoria")
-            n = input("Número de videos a listar: ")
-            
+        sorted=ctrl.n_max_comments(Datos["videos"],tag,pais)
+        i=1
+        while i<=int(n) and i<=lt.size(sorted):
+            vid=lt.getElement(sorted,i)
+            print("titulo: "+vid["title"],"canal: "+vid["channel_title"],"tiempo de publicacion: "+vid["publish_time"],"Comentarios: "+vid["comment_count"])
+            i+=1
     else:
         sys.exit(0)
 sys.exit(0)
