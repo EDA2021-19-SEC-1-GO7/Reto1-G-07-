@@ -60,6 +60,8 @@ def add_categoria(Data, categoria):
 # Funciones de consulta
 
 def filtrar_count_cat(videos:list, categories:list, categoria:str, pais:str)->list:
+    """ Retorna una lista ordenada de los videos con más likes de una categoría y 
+    un país en específico """
     vids_cat=lt.newList()
     cat_id=None
     j=0
@@ -77,6 +79,9 @@ def filtrar_count_cat(videos:list, categories:list, categoria:str, pais:str)->li
     return sort_vids_by_likes(vids_cat)
 
 def filtrar_count_tag(videos, pais, tag)->list:
+    """ Retorna una lista ordenada de los videos con más comentarios de un país 
+    y con un tag en específico. En este caso se incluyen todos aquellos tags que 
+    incluyan la palabra ingresada por el usuario como subcadena """
     vid_filtrados=lt.newList()
     for i in range(lt.size(videos)):
         video=lt.getElement(videos, i)
@@ -85,6 +90,12 @@ def filtrar_count_tag(videos, pais, tag)->list:
     return sort_vids_by_comments(vid_filtrados)
 
 def max_vids_count(videos:list,pais:str)->dict:
+    """ Retorna una tupla que contiene 
+            El título del video que fue tendencia por más días en un país específico
+            El ratio de likes/dislikes para el video que fue tendencia por más días en un país específico
+            El canal del video que fue tendencia por más días en un país específico
+            El numero de días que el video fue tendencia
+            El país en donde el video fue tendencia"""
     registro={}#Diccionario de listas vacio, tendra como llave los titulos de los videos; en las listas se anotaran los valores solicitados por el usuario.
     for i in lt.iterator(videos):#Recorrer cada video de la lista principal.
         titulo=i["title"]
@@ -119,22 +130,28 @@ def max_vids_count(videos:list,pais:str)->dict:
             if dislikes>0:
                 ratio=likes/dislikes
             else:
-                ratio=likes#si hay 0 dislikes, entonces se toma el ratio como el numero de likes.
+                ratio=likes #si hay 0 dislikes, entonces se toma el ratio como el numero de likes.
         elif respuesta==None:
             respuesta=j
             if dislikes>0:
                 ratio=likes/dislikes
             else:
                 ratio=likes
-    return respuesta,ratio,lt.getElement(registro[respuesta],4),lt.getElement(registro[respuesta],1),pais
+    return respuesta, ratio, lt.getElement(registro[respuesta],4), lt.getElement(registro[respuesta],1), pais
 
 
 def max_vids_cat(videos:list, categories:list, categoria:str)->dict:
+    """ Retorna una tupla que contiene 
+            El título del video que fue tendencia por más días de una categoría específica
+            El ratio de likes/dislikes para el video que fue tendencia por más días de una categoría específica
+            El canal del video que fue tendencia por más días de una categoría específica
+            El numero de días que el video fue tendencia
+            La categoría del video fue tendencia por más días"""
     registro={} #Diccionario de listas vacio, tendra como llave los titulos de los videos; en las listas se anotaran los valores solicitados por el usuario.
     cat_id=None
     j=1
     encontro=False
-    while j<lt.size(categories) and encontro == False:
+    while j<lt.size(categories) and encontro == False: #Busca el id de la categoria que se desea consultar
         categ=lt.getElement(categories, j)
         if categ["name"]==categoria:
             search = True
@@ -201,6 +218,9 @@ def cmpVideosByComments(video1, video2):
 # Funciones de ordenamiento
 
 def sort_vids_by_likes(Data:list):
+    """ Retorna la lista ordenada por medio de merge sort y el tiempo que 
+    tardó en realizar esta operación. Utiliza la función cmpVideosByLikes 
+    como función de comparación"""
     start_time = time.process_time()
     sorted_list = merge.sort(Data, cmpVideosByLikes)
     stop_time = time.process_time()
@@ -208,6 +228,9 @@ def sort_vids_by_likes(Data:list):
     return elapsed_time_mseg, sorted_list
 
 def sort_vids_by_comments(Data:list):
+    """ Retorna la lista ordenada por medio de merge sort y el tiempo que 
+    tardó en realizar esta operación. Utiliza la función cmpVideosByCommesnts 
+    como función de comparación"""
     start_time = time.process_time()
     sorted_list = merge.sort(Data, cmpVideosByComments)
     stop_time = time.process_time()

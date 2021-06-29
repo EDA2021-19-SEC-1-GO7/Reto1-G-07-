@@ -52,16 +52,15 @@ def Load_cetegories(storage:dict):
     for cat in input_file:
         model.add_categoria(storage, cat)
 
+# Funciones de ordenamiento
+
+
+# Funciones de consulta sobre el catálogo
 def filtrar_count_cat(videos:list, categories:list, categoria:str, pais:str)->list:
     return model.filtrar_count_cat(videos, categories, categoria, pais)
 
 def filtrar_count_tag(videos, pais, tag)->list:
     return model.filtrar_count_tag(videos, pais, tag)
-
-# Funciones de ordenamiento
-
-
-# Funciones de consulta sobre el catálogo
 
 def max_vids_count(vids:list,pais:str):
     return model.max_vids_count(vids,pais)
