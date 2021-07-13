@@ -24,6 +24,8 @@ from os import sep
 import config as cf
 import model 
 import csv
+import time
+import tracemalloc
 
 
 """
@@ -37,8 +39,22 @@ def initialize():
 
 # Funciones para la carga de datos
 def Load_Data(storage:dict):
+    delta_time = -1.0
+    delta_memory = -1.0
+
+    tracemalloc.start()
+    start_time = getTime()
+    start_memory = getMemory()
     Load_videos(storage)
     Load_cetegories(storage)
+    stop_memory = getMemory()
+    stop_time = getTime()
+    tracemalloc.stop()
+
+    delta_time = stop_time - start_time
+    delta_memory = deltaMemory(start_memory, stop_memory)
+    print("Tiempo [ms]: ", f"{delta_time:.3f}", "  ||  ",
+              "Memoria [kB]: ", f"{delta_memory:.3f}")
 
 def Load_videos(storage:dict):
     videos_File = cf.data_dir + 'videos-large.csv'
@@ -51,19 +67,113 @@ def Load_cetegories(storage:dict):
     input_file = csv.DictReader(open(cat_File, encoding='utf-8'), delimiter='\t')
     for cat in input_file:
         model.add_categoria(storage, cat)
+    
+def getTime():
+    """
+    devuelve el instante tiempo de procesamiento en milisegundos
+    """
+    return float(time.perf_counter()*1000)
+
+
+def getMemory():
+    """
+    toma una muestra de la memoria alocada en instante de tiempo
+    """
+    return tracemalloc.take_snapshot()
+
+
+def deltaMemory(start_memory, stop_memory):
+    """
+    calcula la diferencia en memoria alocada del programa entre dos
+    instantes de tiempo y devuelve el resultado en bytes (ej.: 2100.0 B)
+    """
+    memory_diff = stop_memory.compare_to(start_memory, "filename")
+    delta_memory = 0.0
+
+    # suma de las diferencias en uso de memoria
+    for stat in memory_diff:
+        delta_memory = delta_memory + stat.size_diff
+    # de Byte -> kByte
+    delta_memory = delta_memory/1024.0
+    return delta_memory
 
 # Funciones de ordenamiento
 
 
 # Funciones de consulta sobre el catálogo
 def filtrar_count_cat(videos:list, categories:list, categoria:str, pais:str)->list:
-    return model.filtrar_count_cat(videos, categories, categoria, pais)
+    delta_time = -1.0
+    delta_memory = -1.0
+
+    tracemalloc.start()
+    start_time = getTime()
+    start_memory = getMemory()
+
+    lista=model.filtrar_count_cat(videos, categories, categoria, pais)
+
+    stop_memory = getMemory()
+    stop_time = getTime()
+    tracemalloc.stop()
+
+    delta_time = stop_time - start_time
+    delta_memory = deltaMemory(start_memory, stop_memory)
+    print("Tiempo [ms]: ", f"{delta_time:.3f}", "  ||  ",
+              "Memoria [kB]: ", f"{delta_memory:.3f}")
+
+    return lista 
 
 def filtrar_count_tag(videos, pais, tag)->list:
-    return model.filtrar_count_tag(videos, pais, tag)
+    delta_time = -1.0
+    delta_memory = -1.0
+
+    tracemalloc.start()
+    start_time = getTime()
+    start_memory = getMemory()
+    lista=model.filtrar_count_tag(videos, pais, tag)
+    stop_memory = getMemory()
+    stop_time = getTime()
+    tracemalloc.stop()
+
+    delta_time = stop_time - start_time
+    delta_memory = deltaMemory(start_memory, stop_memory)
+    print("Tiempo [ms]: ", f"{delta_time:.3f}", "  ||  ",
+              "Memoria [kB]: ", f"{delta_memory:.3f}")
+    return lista
+
 
 def max_vids_count(vids:list,pais:str):
-    return model.max_vids_count(vids,pais)
+    delta_time = -1.0
+    delta_memory = -1.0
+
+    tracemalloc.start()
+    start_time = getTime()
+    start_memory = getMemory()
+    lista= model.max_vids_count(vids,pais)
+    stop_memory = getMemory()
+    stop_time = getTime()
+    tracemalloc.stop()
+
+    delta_time = stop_time - start_time
+    delta_memory = deltaMemory(start_memory, stop_memory)
+    print("Tiempo [ms]: ", f"{delta_time:.3f}", "  ||  ",
+              "Memoria [kB]: ", f"{delta_memory:.3f}")
+    return lista
+
 
 def max_vids_cat(videos:list, categories:list, categoria:str):
-    return model.max_vids_cat(videos, categories, categoria)
+    delta_time = -1.0
+    delta_memory = -1.0
+
+    tracemalloc.start()
+    start_time = getTime()
+    start_memory = getMemory()
+    lista= model.max_vids_cat(videos, categories, categoria)
+    stop_memory = getMemory()
+    stop_time = getTime()
+    tracemalloc.stop()
+
+    delta_time = stop_time - start_time
+    delta_memory = deltaMemory(start_memory, stop_memory)
+    print("Tiempo [ms]: ", f"{delta_time:.3f}", "  ||  ",
+              "Memoria [kB]: ", f"{delta_memory:.3f}")
+    return lista
